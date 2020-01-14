@@ -17,8 +17,6 @@ from .constants import map_color
 
 
 class Canvas(object):
-    Fps = 60
-    IntervalMs = int(1000 // Fps)
     MinRefreshMs = 1
 
     def _next_refresh(self):
@@ -26,16 +24,18 @@ class Canvas(object):
         elapsed = ms - self._time
         self._time = ms
 
-        if Canvas.IntervalMs < elapsed:
+        if self.IntervalMs < elapsed:
             return Canvas.MinRefreshMs
 
-        return max(Canvas.IntervalMs - elapsed, Canvas.MinRefreshMs)
+        return max(self.IntervalMs - elapsed, Canvas.MinRefreshMs)
 
-    def __init__(self, master, width, height):
+    def __init__(self, master, width, height, target_framerate = 60):
         self._canvas = tkinter.Canvas(master, width=width, height=height, bd=2,
                                       bg='black', highlightthickness=0)
         self._canvas.pack(fill=tkinter.BOTH, expand=True)
 
+        self.Fps = target_framerate
+        self.IntervalMs = int(1000 // target_framerate)
         self._draw_handler_fn = None
         self._time = int(round(time.time() * 1000))
         self._draw_handler(master)

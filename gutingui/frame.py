@@ -26,10 +26,10 @@ class Frame(object):
         root.protocol('WM_DELETE_WINDOW', root.quit)
         return root
 
-    def _canvas_init(self, width, height, canvas_padding = 5):
+    def _canvas_init(self, width = None, height = None, padding = None, target_framerate = None):
         canvas_frame = tkinter.Frame(self._root)
-        self._canvas = Canvas(canvas_frame, width, height)
-        canvas_frame.grid(row=0, column=1, rowspan=2, padx=canvas_padding, pady=canvas_padding,
+        self._canvas = Canvas(canvas_frame, width = width, height = height, target_framerate = target_framerate)
+        canvas_frame.grid(row=0, column=1, rowspan=2, padx=padding, pady=padding,
                           sticky=(tkinter.N, tkinter.S, tkinter.W, tkinter.E))
 
     def _control_frame_init(self, width):
@@ -44,12 +44,19 @@ class Frame(object):
         status_frame.grid(row=1, column=0, sticky=(tkinter.W, tkinter.E),
                           padx=5, pady=5)
 
-    def __init__(self, title, canvas_width, canvas_height, control_width, *, canvas_padding = 5, show_panel = True):
+    def __init__(self,
+        title = None,
+        canvas_width = None,
+        canvas_height = None,
+        control_width = None,
+        canvas_padding = None,
+        show_panel = None,
+        target_framerate = None):
         self._root = self._create_root(title)
 
         self._canvas_frame = None
         self._canvas = None
-        self._canvas_init(canvas_width, canvas_height, canvas_padding = canvas_padding)
+        self._canvas_init(width = canvas_width, height = canvas_height, padding = canvas_padding, target_framerate = target_framerate)
 
         self._control_frame = None
         self._controls = []
@@ -113,5 +120,21 @@ class Frame(object):
         return self._canvas.get_textwidth(text, size, face)
 
 
-def create_frame(title, canvas_width, canvas_height, control_width=200, *, canvas_padding = 5, show_panel = True):
-    return Frame(title, canvas_width, canvas_height, control_width, canvas_padding = canvas_padding, show_panel = show_panel)
+def create_frame(
+    title = "GutinGUI",
+    canvas_width = 800,
+    canvas_height = 600,
+    control_width = 200,
+    *,
+    canvas_padding = 5,
+    show_panel = True,
+    target_framerate = 60):
+      return Frame(
+        title = title,
+        canvas_width = canvas_width,
+        canvas_height = canvas_height,
+        control_width = control_width,
+        canvas_padding = canvas_padding,
+        show_panel = show_panel,
+        target_framerate = target_framerate
+    )
