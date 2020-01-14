@@ -19,7 +19,7 @@ class Image(object):
             image = urlopen(url).read()
             self._image = PilImage.open(io.BytesIO(image)).convert('RGBA')
         else:
-            self._image = PilImage.open(url,'rb').convert('RGBA')
+            self._image = PilImage.open(url,'r').convert('RGBA')
         self._versions = {}
 
     def get_width(self):
@@ -48,8 +48,11 @@ class Image(object):
             self._versions[version] = ImageTk.PhotoImage(image)
         return self._versions[version]
 
-
 def load_image(URL):
+    """
+    Load a picture from the provided URL.
+    Supports HTTP and HTTPS. Does not support local files (yet).
+    """
     return Image(URL)
 
 
