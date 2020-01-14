@@ -16,13 +16,14 @@ In addition, existing arguments can be called with named arguments.
 
 New | Argument           | Default    | Description
 --- | ------------------ | ---------- | ----------------------
-[ ] | `title`            | "GutinGUI" | The title of the window
-[ ] | `canvas_width`     | 800        | The width of the canvas
-[ ] | `canvas_height`    | 600        | The height of the canvas
-[ ] | `canvas_padding`   | 5          | The padding around the canvas.
-[X] | `control_width`    | 200        | The width of the control panel. Note that the control panel is above the input panel (the one with Key and Mouse).
-[X] | `show_panel`       | True       | Make the control frame and the input frame visible. When hidden, the canvas takes up the space of the entire window.
-[X] | `target_framerate` | 60         | The frame rate the program runs at. May destroy your program if changed if you've tied the physics to the framerate. Whoopsiedaisy.
+No  | `title`            | "GutinGUI" | The title of the window
+No  | `canvas_width`     | 800        | The width of the canvas
+No  | `canvas_height`    | 600        | The height of the canvas
+Yes | `canvas_padding`   | 5          | The padding around the canvas.
+No  | `control_width`    | 200        | The width of the control panel. Note that the control panel is above the input panel (the one with Key and Mouse).
+Yes | `show_panel`       | True       | Make the control frame and the input frame visible. When hidden, the canvas takes up the space of the entire window.
+Yes | `target_framerate` | 60         | The frame rate the program runs at. May destroy your program if changed if you've tied the physics to the framerate. Whoopsiedaisy.
+
 
 There's no way this horrible hack is going onto pypi, so you're going to have to set your `PYTHONPATH` environment variable.
 
