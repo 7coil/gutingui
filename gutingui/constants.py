@@ -25,6 +25,7 @@ ColorMap = {'aqua': '#00ffff',
             'white': '#ffffff',
             'yellow': '#ffff00'}
 
+# Could be better, but it works (trademark)
 rgb_pattern = r'rgb\(\s*(\d|\d\d|1\d\d|2[0-4]\d|25[0-6])\s*,\s*(\d|\d\d|1\d\d|2[0-4]\d|25[0-6])\s*,\s*(\d|\d\d|1\d\d|2[0-4]\d|25[0-6])\)'
 
 def map_color(color):
@@ -33,7 +34,7 @@ def map_color(color):
     elif color.lower() in ColorMap:
         return ColorMap[color.lower()]
     elif isinstance(color, str):
-      rgb_match = re.match(rgb_pattern, color)
+      rgb_match = re.match(rgb_pattern.strip(), color)
 
       if len(color) and all(c in hexdigits for c in color):
         return '#%s' % color
