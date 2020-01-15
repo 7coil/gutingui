@@ -23,14 +23,18 @@ class Frame(object):
     def _create_root(self, title):
         root = tkinter.Tk()
         root.wm_title(title)
+        root.columnconfigure(0, weight=1)
+        root.rowconfigure(0, weight=1)
         root.protocol('WM_DELETE_WINDOW', root.quit)
         return root
 
     def _canvas_init(self, width = None, height = None, padding = None, target_framerate = None):
         canvas_frame = tkinter.Frame(self._root)
         self._canvas = Canvas(canvas_frame, width = width, height = height, target_framerate = target_framerate)
-        canvas_frame.grid(row=0, column=1, rowspan=2, padx=padding, pady=padding,
-                          sticky=(tkinter.N, tkinter.S, tkinter.W, tkinter.E))
+        if show_panel:
+            canvas_frame.grid(row=0, column=1, rowspan=2, padx=padding, pady=padding, sticky=(tkinter.N, tkinter.S, tkinter.W, tkinter.E))
+        else:
+            canvas_frame.grid(padx=padding, pady=padding)
 
     def _control_frame_init(self, width):
         self._control_frame = tkinter.Frame(self._root, width=width)
@@ -56,7 +60,7 @@ class Frame(object):
 
         self._canvas_frame = None
         self._canvas = None
-        self._canvas_init(width = canvas_width, height = canvas_height, padding = canvas_padding, target_framerate = target_framerate)
+        self._canvas_init(width = canvas_width, height = canvas_height, padding = canvas_padding, target_framerate = target_framerate, show_panel = show_panel)
 
         self._control_frame = None
         self._controls = []
