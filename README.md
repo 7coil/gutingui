@@ -27,6 +27,18 @@ Yes | `target_framerate` | 60         | The frame rate the program runs at. May 
 
 There's no way this horrible hack is going onto pypi, so you're going to have to set your `PYTHONPATH` environment variable.
 
+### Microsoft Windows (short term)
+1. In `cmd.exe`, enter `set PYTHONPATH=[path to cloned repo]`
+2. Run your python code in the terminal
+
+### Microsoft Windows (more longer term)
+1. Search for `Edit the system environment variables` in the Start menu
+2. Click `Environment Variables`
+3. Add or create a new variable, with name `PYTHONPATH` and the value to the path of where you have cloned this repository.
+4. Restart your terminal to apply the changes. You may also need to restart the entire text editor if it has a built in terminal.
+
+![The environment variables screen](.github/envvar.png)
+
 ## Requirements
 - [Pillow](https://github.com/python-imaging/Pillow) in order to use images.
 - [Pygame](http://www.pygame.org/) for sound support.

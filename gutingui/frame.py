@@ -9,6 +9,9 @@ try:
 except ImportError:
     import tkinter
 
+from PIL import ImageTk
+from PIL import Image
+
 import sys
 
 from .canvas import Canvas
@@ -28,7 +31,14 @@ class Frame(object):
         root.protocol('WM_DELETE_WINDOW', root.quit)
         return root
 
-    def _canvas_init(self, width = None, height = None, padding = None, target_framerate = None):
+    def _background_init(self, image):
+        background_image = ImageTk.PhotoImage(Image.open(image))
+        background_label = tkinter.Label(self._root, image=background_image)
+        background_label.image = background_image
+        background_label.grid()
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    def _canvas_init(self, width = None, height = None, padding = None, target_framerate = None, show_panel = None):
         canvas_frame = tkinter.Frame(self._root)
         self._canvas = Canvas(canvas_frame, width = width, height = height, target_framerate = target_framerate)
         if show_panel:
@@ -55,8 +65,12 @@ class Frame(object):
         control_width = None,
         canvas_padding = None,
         show_panel = None,
-        target_framerate = None):
+        target_framerate = None,
+        background_image = None):
         self._root = self._create_root(title)
+
+        if background_image:
+            self._background_init(background_image)
 
         self._canvas_frame = None
         self._canvas = None
@@ -132,7 +146,8 @@ def create_frame(
     *,
     canvas_padding = 5,
     show_panel = True,
-    target_framerate = 60):
+    target_framerate = 60,
+    background_image = None):
       return Frame(
         title = title,
         canvas_width = canvas_width,
@@ -140,5 +155,6 @@ def create_frame(
         control_width = control_width,
         canvas_padding = canvas_padding,
         show_panel = show_panel,
-        target_framerate = target_framerate
+        target_framerate = target_framerate,
+        background_image = background_image
     )
